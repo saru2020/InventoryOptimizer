@@ -67,7 +67,7 @@ Once the container has finished processing, the results will be stored in the `/
 
 ### Input
 
-The script generates synthetic data that simulates store-level sales and inventory information. Below is a sample of what the synthetic data (`source.csv`) might look like:
+The script generates synthetic data that simulates store-level sales and inventory information. Below is a sample of what the synthetic data ([`source.csv`](https://github.com/saru2020/InventoryOptimizer/blob/main/data/source.csv)) might look like:
 
 | Date       | Store    | SKU    | SalesQuantity | InventoryLevel |
 |------------|----------|--------|---------------|----------------|
@@ -79,7 +79,7 @@ The script generates synthetic data that simulates store-level sales and invento
 
 ### Output
 
-After processing, the tool will output optimized inventory data. Here is a sample from the `output.csv` file:
+After processing, the tool will output optimized inventory data. Here is a sample from the [`output.csv`](https://github.com/saru2020/InventoryOptimizer/blob/main/data/output.csv) file:
 
 | Date       | Store    | SKU    | OrderQuantity | InventoryTurnover |
 |------------|----------|--------|---------------|-------------------|
@@ -87,7 +87,7 @@ After processing, the tool will output optimized inventory data. Here is a sampl
 | 2023-01-01 | Store001 | SKU002 | 5             | 1.8               |
 | 2023-01-01 | Store001 | SKU003 | 0             | 0.9               |
 
-And a sample from the `store_turnover.csv` file:
+And a sample from the [`store_turnover.csv`](https://github.com/saru2020/InventoryOptimizer/blob/main/data/store_turnover.csv) file:
 
 | Store    | InventoryTurnover |
 |----------|-------------------|
