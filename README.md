@@ -5,6 +5,11 @@
 
 This project provides an inventory optimization tool that uses synthetic data and applies demand forecasting, inventory classification, safety stock calculation, and other inventory management techniques. It is containerized using Docker to ensure easy deployment and portability.
 
+
+## Blog
+
+[a detailed write up](https://saru2020.medium.com/optimizing-inventory-management-with-the-inventory-optimizer-tool-5bbb431ebd12) to understand the tool in-depth.
+
 ## Requirements
 
 Before you start, ensure you have the following installed:
