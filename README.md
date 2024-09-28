@@ -23,7 +23,7 @@ Before you start, ensure you have the following installed:
 Clone the project to your local machine.
 
 ```bash
-git clone [<repository-url>](https://github.com/saru2020/InventoryOptimizer.git)
+git clone https://github.com/saru2020/InventoryOptimizer.git
 cd InventoryOptimizer
 ```
 
