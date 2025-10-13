@@ -1,5 +1,5 @@
-pandas
-numpy
-holidays
-scikit-learn
-matplotlib
+pandas>=1.5.0
+numpy>=1.21.0
+holidays>=0.14
+scikit-learn>=1.1.0
+matplotlib>=3.5.0

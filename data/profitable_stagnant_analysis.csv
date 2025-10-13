@@ -1,0 +1,10 @@
+Store,SKU,TotalSales,TotalProfit,ProfitabilityRatio,ProfitabilityCategory,SalesCategory,OverallCategory
+Store001,SKU001,5326,2263.2900000000004,0.4249511828764552,Profitable,Average Sales,Profitable - Average Sales
+Store001,SKU002,4420,1354.5,0.306447963800905,Average,Average Sales,Average - Average Sales
+Store001,SKU003,3666,137.25000000000006,0.037438625204582666,Average,Average Sales,Average - Average Sales
+Store002,SKU001,5359,795.2100000000003,0.1483877589102445,Average,High Sales,Average - High Sales
+Store002,SKU002,4669,1505.0,0.32233883058470764,Average,Average Sales,Average - Average Sales
+Store002,SKU003,3662,76.86000000000003,0.02098853085745495,Stagnant,Average Sales,Stagnant - Average Sales
+Store003,SKU001,5340,1529.2500000000005,0.2863764044943821,Average,High Sales,Average - High Sales
+Store003,SKU002,4369,2483.25,0.5683794918745708,Profitable,Average Sales,Profitable - Average Sales
+Store003,SKU003,3639,93.33000000000004,0.025647155812036283,Average,Low Sales,Average - Low Sales

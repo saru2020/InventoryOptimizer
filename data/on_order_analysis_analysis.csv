@@ -1,0 +1,10 @@
+Store,SKU,OnOrderQuantity,OrderStatus,DaysSinceOrder,IsOverdue,LeadTime
+Store001,SKU001,531,"Shipped, Pending, Confirmed",170.55555555555554,True,7
+Store001,SKU002,567,"Confirmed, In Transit, Shipped, Pending",135.08333333333334,True,5
+Store001,SKU003,314,"Pending, Confirmed, Shipped",196.2,True,3
+Store002,SKU001,603,"Pending, In Transit, Confirmed, Shipped",159.33333333333334,True,7
+Store002,SKU002,89,"Shipped, Pending, Confirmed",206.0,True,5
+Store002,SKU003,167,"Confirmed, Pending",136.5,True,3
+Store003,SKU001,606,"In Transit, Confirmed, Pending, Shipped",187.93333333333334,True,7
+Store003,SKU002,194,"Confirmed, Pending",118.25,True,5
+Store003,SKU003,267,"Confirmed, Shipped, In Transit",88.4,True,3
