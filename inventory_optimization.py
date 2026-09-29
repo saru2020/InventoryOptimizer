@@ -1,13 +1,12 @@
 # inventory_optimization.py
 
-import csv
 import os
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import holidays
 import warnings
-from typing import Dict, List, Tuple, Optional, Union
+from typing import List
 warnings.filterwarnings('ignore')
 
 def get_holidays(country: str = 'IN', state: str = 'TN', years: List[int] = None) -> set:
@@ -200,7 +199,6 @@ def classify_inventory(df):
 
 def calculate_safety_stock(df):
     # Calculate safety stock levels
-    service_level = 0.95  # Desired service level
     z_score = 1.96  # Z-score for 95% confidence interval
     df['SafetyStock'] = z_score * df.groupby(['Store', 'SKU'])['SalesQuantity'].transform(lambda x: x.std())
     return df
