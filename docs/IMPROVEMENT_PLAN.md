@@ -11,7 +11,7 @@ The five things worth doing next, in order. Full detail, including evidence and 
 3. **IMP-03 - Reconcile the documented formulas with the code.** Safety stock, store turnover and profitability are
    described one way in `METRICS_DOCUMENTATION.md` and computed another way. Decide which is correct for each, then
    change the code or the document.
-4. **IMP-04 - Make the pre-commit lint hook pass.** `flake8` exits 1 with 365 findings, so the `python-linting` hook
+4. **IMP-04 - Make the pre-commit lint hook pass.** `flake8` exits 1 with 354 findings, so the `python-linting` hook
    blocks every commit unless it is skipped. It needs a configuration and a one-off whitespace cleanup.
 5. **IMP-05 - Pin dependencies and test the output path.** `requirements.txt` has lower bounds only, and `main()`,
    `save_metrics_to_csv()` and `print_metrics_summary()` are the 29% of the pipeline no test touches.

@@ -58,7 +58,7 @@ Single process, single module, file-based input and output.
 
 Entry points:
 
-- `python inventory_optimization.py` runs `main()` (`inventory_optimization.py:798`).
+- `python inventory_optimization.py` runs `main()` (`inventory_optimization.py:798-799`).
 - `docker run ... inventory_optimizer` runs the same script through the image `CMD` (`Dockerfile:18`).
 - `python test_inventory_optimization.py` runs the suite through `run_all_tests()`.
 
@@ -129,7 +129,8 @@ halves follow different conventions.
 
 Specific findings:
 
-- `import csv` and four of the five `typing` imports were unused (`inventory_optimization.py:3`, `:10`); removed in
+- `import csv` and four of the five `typing` imports were unused (`inventory_optimization.py:3`, `:10`), as were
+  `timedelta`, `os` and `calculate_inventory_turnover_store` in `test_inventory_optimization.py`; all removed in
   this branch.
 - `service_level = 0.95` in `calculate_safety_stock` was assigned and never used (`:203`); removed in this branch.
   The z-score is hardcoded to 1.96 on the next line, so the service level is not actually configurable.
@@ -187,9 +188,10 @@ noted above dominate the larger run.
 ## Tooling and delivery
 
 - `.pre-commit-config.yaml` defines four local hooks: the test suite, flake8, isort and black. The flake8 hook runs
-  with no configuration, and flake8 reports 365 findings on `inventory_optimization.py` and
+  with no configuration, and at `98e48fb` flake8 reported 365 findings on `inventory_optimization.py` and
   `test_inventory_optimization.py` (exit code 1), 185 of them `W293` blank line contains whitespace and 107 `E501`
-  line too long. The hook therefore cannot pass as things stand. `setup.cfg`, `tox.ini` and `pyproject.toml` are all
+  line too long. Removing the unused imports in this branch brings that to 354, still an exit code of 1, so the hook
+  cannot pass as things stand. `setup.cfg`, `tox.ini` and `pyproject.toml` are all
   absent, so there is nothing that would relax those defaults, and no black or isort configuration either, which
   means the black and isort hooks would rewrite the files on the first run.
 - `setup_precommit.py` installs pre-commit, flake8, isort and black with `pip install` into whatever interpreter is
@@ -208,10 +210,11 @@ an intent the code does not implement. Each of the three sections in `METRICS_DO
 "Currently implemented" note recording the gap, and the README metrics table rows 1 and 6 were corrected to describe
 the implementation:
 
-1. Safety stock. Both documents give `Z-score × √(Lead Time) × Standard Deviation of Demand`
-   (`METRICS_DOCUMENTATION.md:37`, README metrics table row 1). The implementation is `1.96 × std(SalesQuantity)` per
+1. Safety stock. `METRICS_DOCUMENTATION.md:37` gives `Z-score × √(Lead Time) × Standard Deviation of Demand`, as did
+   README metrics table row 1 before this branch corrected it. The implementation is `1.96 × std(SalesQuantity)` per
    store and SKU with no lead time term (`inventory_optimization.py:205`).
-2. Store turnover. The README metrics table row 6 says `Total Sales / Average Inventory Value`. The implementation
+2. Store turnover. `METRICS_DOCUMENTATION.md:177` gives `Total Sales / Average Inventory Value`, as did README
+   metrics table row 6 before this branch corrected it. The implementation
    divides summed sales quantity by mean inventory level, not value (`inventory_optimization.py:279`). Because
    inventory level is a fresh random draw each day, the result is around 244 for `Store001` on a default run, not the
    approximately 2.0 shown in the README's example table.
@@ -227,7 +230,7 @@ the implementation:
 |---|---|---|
 | High | `InventoryLevel` is an independent random draw per row (`inventory_optimization.py:131`) with no link to sales, reorders or deliveries, so every stock-derived metric (turnover, stock-out risk, days to stock-out, excess inventory) describes noise rather than a simulated inventory position | store turnover of 244 on a default run against the README's example of 2.0 |
 | High | Vulnerable transitive dependencies in the published image at `98e48fb` | `pip-audit` inside `python:3.8-slim`: scikit-learn PYSEC-2024-110, pillow 17 advisories |
-| Medium | The `python-linting` pre-commit hook cannot pass | `flake8` exits 1 with 365 findings |
+| Medium | The `python-linting` pre-commit hook cannot pass | `flake8` exits 1 with 354 findings on this branch |
 | Medium | Documented formulas differ from the implementation in three places, now annotated rather than resolved | see Documentation above |
 | Medium | Output-writing code is untested, including the `/data` versus `data/` switch | coverage report, 85 missed statements |
 | Medium | No dependency pinning or lockfile; the same command produces pandas 2.0.3 or 3.0.6 depending on the interpreter | `requirements.txt`, the two image builds above |

@@ -1,8 +1,8 @@
 # Improvement Plan (detailed)
 
 Short version: [IMPROVEMENT_PLAN.md](IMPROVEMENT_PLAN.md). Evidence for everything below is in
-[PROJECT_ANALYSIS_DETAILED.md](PROJECT_ANALYSIS_DETAILED.md). Item statuses refer to the pull request that
-introduced these documents.
+[PROJECT_ANALYSIS_DETAILED.md](PROJECT_ANALYSIS_DETAILED.md). Line references are to `main` at `98e48fb`. Item
+statuses refer to the pull request that introduced these documents.
 
 ## P0 - security and correctness
 
@@ -75,7 +75,7 @@ introduced these documents.
 
 - Category: developer experience
 - Problem: the `python-linting` hook runs `python -m flake8` with no configuration
-  (`.pre-commit-config.yaml:15-20`). flake8 exits 1 with 365 findings on the two files it checks, 185 `W293` and 107
+  (`.pre-commit-config.yaml:15-20`). flake8 exits 1 with 354 findings on the two files it checks, 185 `W293` and 106
   `E501`. There is no `setup.cfg`, `tox.ini` or `pyproject.toml` to relax the defaults, so the hook blocks every
   commit unless it is skipped, and the black and isort hooks would reformat both files on their first run.
 - Change: add a flake8 configuration with a line length matching the existing code, run black and isort once as a
@@ -140,17 +140,20 @@ introduced these documents.
 ### IMP-08 Remove dead code
 
 - Category: fix
-- Problem: `import csv` and four unused `typing` imports (`inventory_optimization.py:3`, `:10`) and the unused
-  `service_level` variable (`:203`); `inventory_optimization_old.py` and `inventory_optimization_with_graph.py` are
-  not imported, tested or referenced by the README, and the second writes to `/data` unconditionally so it only runs
-  inside a container.
-- Change: the imports and the variable are removed in this pull request. For the two legacy scripts, either delete
-  them (the history keeps them) or move them under `examples/` with a line in the README saying what they are.
+- Problem: `import csv` and four unused `typing` imports (`inventory_optimization.py:3`, `:10`), the unused
+  `service_level` variable (`:203`), and three unused imports in `test_inventory_optimization.py` (`timedelta`, `os`
+  and `calculate_inventory_turnover_store`); `inventory_optimization_old.py` and
+  `inventory_optimization_with_graph.py` are not imported, tested or referenced by the README, and the second writes
+  to `/data` unconditionally so it only runs inside a container.
+- Change: the unused imports and the variable are removed in this pull request. For the two legacy scripts, either
+  delete them (the history keeps them) or move them under `examples/` with a line in the README saying what they are.
 - Benefit: the root of the repository stops implying there are three pipelines.
 - Effort: S. Risk: low.
 - Dependencies: none.
-- Acceptance: `flake8 --select=F` reports nothing; no unreferenced script sits at the repository root.
-- Status: imports and variable Addressed in this pull request; the legacy scripts remain Proposed.
+- Acceptance: `flake8 --select=F` reports nothing for either module; no unreferenced script sits at the repository
+  root.
+- Status: unused imports and variable Addressed in this pull request, verified with `flake8 --select=F`; the legacy
+  scripts remain Proposed.
 
 ### IMP-09 Stop tracking generated output
 
