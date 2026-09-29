@@ -42,6 +42,8 @@ Safety Stock = Z-score × √(Lead Time) × Standard Deviation of Demand
 - Lead Time = Average lead time in days
 - Standard Deviation of Demand = Historical demand variability
 
+**Currently implemented**: `calculate_safety_stock` in `inventory_optimization.py` applies `1.96 × standard deviation of SalesQuantity` per store and SKU, without the lead time factor. See item IMP-03 in [docs/IMPROVEMENT_PLAN.md](docs/IMPROVEMENT_PLAN.md).
+
 **Business Impact**:
 - **Reduces stock-out risk** by providing buffer for demand spikes
 - **Minimizes excess inventory** by using statistical methods
@@ -180,6 +182,8 @@ Store Turnover = Total Sales / Average Inventory Value
 **Where**:
 - Total Sales = Sum of all sales at the store
 - Average Inventory Value = Mean inventory value over the period
+
+**Currently implemented**: `calculate_inventory_turnover_store` divides summed `SalesQuantity` by mean `InventoryLevel`, so the result is in units rather than monetary value. See item IMP-03 in [docs/IMPROVEMENT_PLAN.md](docs/IMPROVEMENT_PLAN.md).
 
 **Business Impact**:
 - **Compares store performance** across locations
@@ -358,6 +362,8 @@ Profitability Ratio = Total Profit / Total Sales
 - **Profitable**: Top 20% by profitability ratio
 - **Stagnant**: Bottom 20% by profitability ratio
 - **Moderate**: Middle 60% by profitability ratio
+
+**Currently implemented**: `calculate_profitable_stagnant_items` multiplies profit per unit by the `SalesQuantity` of the last row for each store and SKU, which is one day rather than the period total, and then divides by `TotalSales`. See item IMP-03 in [docs/IMPROVEMENT_PLAN.md](docs/IMPROVEMENT_PLAN.md).
 
 **Business Impact**:
 - **Focuses resources** on high-value items

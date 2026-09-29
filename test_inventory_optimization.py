@@ -3,8 +3,7 @@
 import unittest
 import pandas as pd
 import numpy as np
-from datetime import datetime, timedelta
-import os
+from datetime import datetime
 import sys
 import warnings
 warnings.filterwarnings('ignore')
@@ -13,7 +12,7 @@ warnings.filterwarnings('ignore')
 from inventory_optimization import (
     get_holidays, generate_synthetic_data, demand_forecasting, classify_inventory,
     calculate_safety_stock, calculate_eoq, calculate_reorder_point, should_reorder,
-    calculate_daily_order, calculate_inventory_turnover, calculate_inventory_turnover_store,
+    calculate_daily_order, calculate_inventory_turnover,
     calculate_excess_inventory_items, calculate_stockout_risk_items, calculate_never_sold_items,
     calculate_fast_slow_moving_items, calculate_urgent_orders_items, calculate_profitable_stagnant_items,
     calculate_days_to_stockout, calculate_average_daily_demand, calculate_lead_time_analysis,
@@ -502,3 +501,5 @@ if __name__ == '__main__':
             print(f"ERROR: {error[0]}")
             print(error[1])
     print("="*60)
+
+    sys.exit(0 if result.wasSuccessful() else 1)
