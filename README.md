@@ -5,6 +5,12 @@
 
 This project provides an inventory optimization tool that uses synthetic data and applies demand forecasting, inventory classification, safety stock calculation, and other inventory management techniques. It is containerized using Docker to ensure easy deployment and portability.
 
+## Documentation
+
+- [Project Analysis](docs/PROJECT_ANALYSIS.md) - what the tool does, its current state and its main risks ([detailed version](docs/PROJECT_ANALYSIS_DETAILED.md)).
+- [Improvement Plan](docs/IMPROVEMENT_PLAN.md) - the prioritised work to do next ([detailed version](docs/IMPROVEMENT_PLAN_DETAILED.md)).
+- [Metrics Documentation](METRICS_DOCUMENTATION.md) - formulas and business rationale for all 16 metrics.
+
 
 ## Blog
 
@@ -14,7 +20,8 @@ This project provides an inventory optimization tool that uses synthetic data an
 
 Before you start, ensure you have the following installed:
 
-- Docker: [Get Docker](https://docs.docker.com/get-docker/)
+- Docker: [Get Docker](https://docs.docker.com/get-docker/) for the containerized run
+- Python 3.11 or newer, if you want to run the script and the tests directly
 
 ## How to Run
 
@@ -95,12 +102,12 @@ This enhanced version now supports **ALL 16 comprehensive inventory metrics**:
 
 | # | Metric | Category | Formula | Business Impact |
 |---|--------|----------|---------|-----------------|
-| 1 | Safety Stock | Core | Z-score × √(Lead Time) × Std Dev | Prevents stock-outs |
+| 1 | Safety Stock | Core | Z-score × Std Dev of Demand | Prevents stock-outs |
 | 2 | EOQ | Core | √(2 × Demand × Order Cost / Holding Cost) | Cost optimization |
 | 3 | Reorder Point | Core | Safety Stock + (Demand × Lead Time) - Pending | Timely reordering |
 | 4 | Daily Order | Core | max(Reorder Point - Inventory - Pending, 0) | Daily decisions |
 | 5 | Inventory Turnover | Core | Total Sales / Average Inventory | Efficiency measure |
-| 6 | Store Turnover | Core | Total Sales / Average Inventory Value | Store comparison |
+| 6 | Store Turnover | Core | Total Sales / Average Inventory Level | Store comparison |
 | 7 | Excess Inventory | Analytics | Current - (Safety + Demand × Lead Time) | Capital optimization |
 | 8 | Stock-out Risk | Analytics | (Safety + Demand × Lead Time) - Current | Prevents lost sales |
 | 9 | Never Sold | Analytics | Total Sales = 0 | Dead stock identification |
