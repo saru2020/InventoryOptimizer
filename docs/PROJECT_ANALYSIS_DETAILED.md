@@ -159,6 +159,11 @@ untested, including the `/data` versus `data/` selection.
 Assertions are mostly structural (column presence, row counts, types). No test pins a computed value, so a change in
 any formula would pass unnoticed.
 
+At `98e48fb` the `__main__` block printed the result but never set an exit code, so `python
+test_inventory_optimization.py` returned 0 even when tests failed. That made the `inventory-optimization-tests`
+pre-commit hook ineffective. This branch adds `sys.exit(0 if result.wasSuccessful() else 1)`, verified by forcing a
+test to fail and confirming exit code 1.
+
 ## Security
 
 - Dependency advisories, measured with `pip-audit`: inside the `python:3.8-slim` image, scikit-learn 1.3.2 is

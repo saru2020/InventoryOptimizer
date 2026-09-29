@@ -103,17 +103,20 @@ introduced these documents.
   passes against them.
 - Status: Proposed.
 
-### IMP-06 Continuous integration
+### IMP-06 Continuous integration and a meaningful test exit code
 
 - Category: developer experience
-- Problem: no workflow existed at `98e48fb`, so nothing ran the 36 tests on a pull request.
-- Change: a workflow on `ubuntu-latest` that installs `requirements.txt` and runs
-  `python test_inventory_optimization.py` for pull requests and pushes to `main`, with `contents: read` permissions,
-  concurrency cancellation and a timeout.
-- Benefit: regressions are caught before merge.
+- Problem: no workflow existed at `98e48fb`, so nothing ran the 36 tests on a pull request. The test script also
+  exited 0 whether or not tests passed, because its `__main__` block printed the result without setting an exit
+  code, which made the `inventory-optimization-tests` pre-commit hook ineffective as well.
+- Change: make the test script exit non-zero on failure, and add a workflow on `ubuntu-latest` that installs
+  `requirements.txt` and runs `python test_inventory_optimization.py` for pull requests and pushes to `main`, with
+  `contents: read` permissions, concurrency cancellation and a timeout.
+- Benefit: regressions are caught before merge, and the pre-commit test hook starts blocking broken commits.
 - Effort: S. Risk: none.
 - Dependencies: none.
-- Acceptance: the workflow passes on this pull request; `actionlint` reports no problems.
+- Acceptance: the workflow passes on this pull request; `actionlint` reports no problems; forcing a test to fail
+  produces exit code 1.
 - Status: Addressed in this pull request.
 
 ## P2 - worthwhile

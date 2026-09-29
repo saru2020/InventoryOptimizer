@@ -16,5 +16,5 @@ The five things worth doing next, in order. Full detail, including evidence and 
 5. **IMP-05 - Pin dependencies and test the output path.** `requirements.txt` has lower bounds only, and `main()`,
    `save_metrics_to_csv()` and `print_metrics_summary()` are the 29% of the pipeline no test touches.
 
-Two smaller items from this pull request are already done: a test workflow now runs on pull requests and pushes to
-`main` (IMP-06), and the unused imports and variable are gone (IMP-08).
+Two smaller items from this pull request are already done: the test script now exits non-zero on failure and a test
+workflow runs on pull requests and pushes to `main` (IMP-06), and the unused imports and variable are gone (IMP-08).
